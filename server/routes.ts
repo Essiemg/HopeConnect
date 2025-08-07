@@ -6,7 +6,7 @@ import { setupAuth } from "./auth";
 import { 
   insertTeamMemberSchema, insertBlogPostSchema, insertProgramSchema,
   insertEventSchema, insertDonationSchema, insertMerchandiseSchema,
-  insertContactMessageSchema, insertGalleryImageSchema
+  insertContactMessageSchema, insertGalleryImageSchema, insertLoginLogSchema
 } from "@shared/schema";
 
 // M-Pesa configuration
@@ -539,6 +539,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ message: "Failed to delete gallery image" });
+    }
+  });
+
+  // Admin: Login logs
+  app.get("/api/admin/login-logs", async (req, res) => {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+      const logs = await storage.getRecentLoginLogs(limit);
+      res.json(logs);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch login logs" });
+    }
+  });
+
+  // Admin: Get single blog post for editing
+  app.get("/api/admin/blog/:id", async (req, res) => {
+    try {
+      const post = await storage.getBlogPost(req.params.id);
+      if (!post) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch blog post" });
     }
   });
 

@@ -12,6 +12,7 @@ import AdminDashboard from "@/pages/admin/dashboard";
 import TeamManagement from "@/pages/admin/team-management";
 import BlogManagement from "@/pages/admin/blog-management";
 import EventsManagement from "@/pages/admin/events-management";
+import GalleryManagement from "@/pages/admin/gallery-management";
 import DonationPage from "@/pages/donation-page";
 import TeamPage from "@/pages/about/team";
 import HistoryPage from "@/pages/about/history";
@@ -49,8 +50,11 @@ function Router() {
       
       {/* Protected admin routes */}
       <ProtectedRoute path="/admin" component={AdminDashboard} />
+      <ProtectedRoute path="/admin/dashboard" component={AdminDashboard} />
       <ProtectedRoute path="/admin/team" component={TeamManagement} />
       <ProtectedRoute path="/admin/blog" component={BlogManagement} />
+      <ProtectedRoute path="/admin/blog-management" component={BlogManagement} />
+      <ProtectedRoute path="/admin/gallery-management" component={GalleryManagement} />
       <ProtectedRoute path="/admin/events" component={EventsManagement} />
       
       {/* Fallback to 404 */}

@@ -1,11 +1,12 @@
 import { 
   users, teamMembers, blogPosts, programs, events, donations, 
-  merchandise, contactMessages, galleryImages,
+  merchandise, contactMessages, galleryImages, loginLogs,
   type User, type InsertUser, type TeamMember, type InsertTeamMember,
   type BlogPost, type InsertBlogPost, type Program, type InsertProgram,
   type Event, type InsertEvent, type Donation, type InsertDonation,
   type Merchandise, type InsertMerchandise, type ContactMessage, 
-  type InsertContactMessage, type GalleryImage, type InsertGalleryImage
+  type InsertContactMessage, type GalleryImage, type InsertGalleryImage,
+  type LoginLog, type InsertLoginLog
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
@@ -82,6 +83,11 @@ export interface IStorage {
   createGalleryImage(image: InsertGalleryImage): Promise<GalleryImage>;
   updateGalleryImage(id: string, image: Partial<InsertGalleryImage>): Promise<GalleryImage>;
   deleteGalleryImage(id: string): Promise<void>;
+
+  // Login Logs
+  getAllLoginLogs(): Promise<LoginLog[]>;
+  getRecentLoginLogs(limit?: number): Promise<LoginLog[]>;
+  createLoginLog(log: InsertLoginLog): Promise<LoginLog>;
 
   sessionStore: session.Store;
 }
@@ -370,6 +376,22 @@ export class DatabaseStorage implements IStorage {
 
   async deleteGalleryImage(id: string): Promise<void> {
     await db.delete(galleryImages).where(eq(galleryImages.id, id));
+  }
+
+  // Login Logs
+  async getAllLoginLogs(): Promise<LoginLog[]> {
+    return await db.select().from(loginLogs).orderBy(desc(loginLogs.loginTime));
+  }
+
+  async getRecentLoginLogs(limit = 10): Promise<LoginLog[]> {
+    return await db.select().from(loginLogs)
+      .orderBy(desc(loginLogs.loginTime))
+      .limit(limit);
+  }
+
+  async createLoginLog(log: InsertLoginLog): Promise<LoginLog> {
+    const [newLog] = await db.insert(loginLogs).values(log).returning();
+    return newLog;
   }
 }
 

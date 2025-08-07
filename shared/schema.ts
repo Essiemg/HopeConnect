@@ -111,14 +111,31 @@ export const galleryImages = pgTable("gallery_images", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const loginLogs = pgTable("login_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").references(() => users.id),
+  email: text("email").notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  loginTime: timestamp("login_time").defaultNow().notNull(),
+});
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   blogPosts: many(blogPosts),
+  loginLogs: many(loginLogs),
 }));
 
 export const blogPostsRelations = relations(blogPosts, ({ one }) => ({
   author: one(users, {
     fields: [blogPosts.authorId],
+    references: [users.id],
+  }),
+}));
+
+export const loginLogsRelations = relations(loginLogs, ({ one }) => ({
+  user: one(users, {
+    fields: [loginLogs.userId],
     references: [users.id],
   }),
 }));
@@ -170,6 +187,11 @@ export const insertGalleryImageSchema = createInsertSchema(galleryImages).omit({
   createdAt: true,
 });
 
+export const insertLoginLogSchema = createInsertSchema(loginLogs).omit({
+  id: true,
+  loginTime: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -189,3 +211,5 @@ export type ContactMessage = typeof contactMessages.$inferSelect;
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type GalleryImage = typeof galleryImages.$inferSelect;
 export type InsertGalleryImage = z.infer<typeof insertGalleryImageSchema>;
+export type LoginLog = typeof loginLogs.$inferSelect;
+export type InsertLoginLog = z.infer<typeof insertLoginLogSchema>;

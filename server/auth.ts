@@ -108,13 +108,31 @@ export function setupAuth(app: Express) {
     }
   });
 
-  app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    res.status(200).json({
-      id: req.user!.id,
-      username: req.user!.username,
-      email: req.user!.email,
-      role: req.user!.role,
-    });
+  app.post("/api/login", passport.authenticate("local"), async (req, res) => {
+    try {
+      // Log successful login
+      await storage.createLoginLog({
+        userId: req.user!.id,
+        email: req.user!.email,
+        ipAddress: req.ip || req.connection.remoteAddress || "unknown",
+        userAgent: req.headers['user-agent'] || "unknown"
+      });
+
+      res.status(200).json({
+        id: req.user!.id,
+        username: req.user!.username,
+        email: req.user!.email,
+        role: req.user!.role,
+      });
+    } catch (error) {
+      console.error("Failed to log login:", error);
+      res.status(200).json({
+        id: req.user!.id,
+        username: req.user!.username,
+        email: req.user!.email,
+        role: req.user!.role,
+      });
+    }
   });
 
   app.post("/api/logout", (req, res, next) => {

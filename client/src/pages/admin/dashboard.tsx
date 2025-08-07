@@ -13,6 +13,9 @@ export default function AdminDashboard() {
   const { data: donations } = useQuery<Donation[]>({ queryKey: ["/api/admin/donations"] });
   const { data: messages } = useQuery<ContactMessage[]>({ queryKey: ["/api/admin/messages"] });
   const { data: gallery } = useQuery<GalleryImage[]>({ queryKey: ["/api/admin/gallery"] });
+  const { data: loginLogs } = useQuery<LoginLog[]>({ queryKey: ["/api/admin/login-logs"], });
+
+  const publishedBlogCount = blog?.filter(post => post.isPublished).length || 0;
 
   const stats = [
     {
@@ -24,10 +27,10 @@ export default function AdminDashboard() {
     },
     {
       title: "Blog Posts",
-      value: blog?.length || 0,
+      value: `${publishedBlogCount}/${blog?.length || 0}`,
       icon: FileText,
       link: "/admin/blog",
-      description: "Published and draft posts"
+      description: "Published / Total posts"
     },
     {
       title: "Events",
@@ -171,6 +174,55 @@ export default function AdminDashboard() {
             </Card>
           </div>
 
+          {/* Login Activity */}
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Shield className="h-5 w-5 text-primary" />
+                <span>Recent Login Activity</span>
+              </CardTitle>
+              <CardDescription>Last 10 admin login sessions for security monitoring</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loginLogs && loginLogs.length > 0 ? (
+                <div className="space-y-3">
+                  {loginLogs.map((log) => (
+                    <div key={log.id} className="flex items-center justify-between p-3 border rounded-lg bg-gray-50" data-testid={`login-log-${log.id}`}>
+                      <div className="flex items-center space-x-3">
+                        <div className="flex-shrink-0">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm">{log.email}</p>
+                          <p className="text-xs text-gray-600">
+                            {log.ipAddress} • {log.userAgent?.split(' ')[0] || 'Unknown Browser'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-medium">
+                          {new Date(log.loginTime).toLocaleDateString()}
+                        </p>
+                        <p className="text-xs text-gray-500 flex items-center">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {new Date(log.loginTime).toLocaleTimeString()}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No login activity yet</h3>
+                  <p className="text-gray-500">
+                    Login tracking will appear here once you start logging in to the admin panel.
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
           {/* Quick Actions */}
           <Card className="mt-8">
             <CardHeader>
@@ -185,7 +237,7 @@ export default function AdminDashboard() {
                     <span className="text-sm">Add Team Member</span>
                   </Button>
                 </Link>
-                <Link href="/admin/blog">
+                <Link href="/admin/blog-management">
                   <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2" data-testid="button-create-blog-post">
                     <FileText className="h-6 w-6" />
                     <span className="text-sm">Create Blog Post</span>
@@ -197,7 +249,7 @@ export default function AdminDashboard() {
                     <span className="text-sm">Add Event</span>
                   </Button>
                 </Link>
-                <Link href="/admin/gallery">
+                <Link href="/admin/gallery-management">
                   <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center space-y-2" data-testid="button-upload-images">
                     <Image className="h-6 w-6" />
                     <span className="text-sm">Upload Images</span>
