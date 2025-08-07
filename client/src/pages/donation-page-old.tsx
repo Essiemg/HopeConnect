@@ -66,9 +66,8 @@ const MPesaCheckoutForm = ({ donationData }: { donationData: any }) => {
         accountReference: `VOH-${Date.now()}`
       });
 
-      const data = await response.json();
-      if (data.success) {
-        setCheckoutRequestId(data.checkoutRequestId);
+      if (response.success) {
+        setCheckoutRequestId(response.checkoutRequestId);
         setPaymentStatus('pending');
         
         toast({
@@ -76,9 +75,9 @@ const MPesaCheckoutForm = ({ donationData }: { donationData: any }) => {
           description: "Please check your phone and enter your M-Pesa PIN to complete the donation.",
         });
 
-        pollPaymentStatus(data.checkoutRequestId);
+        pollPaymentStatus(response.checkoutRequestId);
       } else {
-        throw new Error(data.message || "Failed to initiate payment");
+        throw new Error(response.message || "Failed to initiate payment");
       }
     } catch (error: any) {
       console.error('M-Pesa payment error:', error);
@@ -103,19 +102,18 @@ const MPesaCheckoutForm = ({ donationData }: { donationData: any }) => {
           checkoutRequestId: requestId
         });
 
-        const data = await response.json();
-        if (data.ResultCode === "0") {
+        if (response.ResultCode === "0") {
           setPaymentStatus('success');
           toast({
             title: "Donation successful!",
             description: "Thank you for your generous donation to Voices of Hope.",
           });
           return;
-        } else if (data.ResultCode && data.ResultCode !== "1037") {
+        } else if (response.ResultCode && response.ResultCode !== "1037") {
           setPaymentStatus('failed');
           toast({
             title: "Payment failed",
-            description: data.ResultDesc || "The payment was not completed successfully.",
+            description: response.ResultDesc || "The payment was not completed successfully.",
             variant: "destructive",
           });
           return;
@@ -342,6 +340,101 @@ export default function DonationPage() {
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Your donation helps empower women and girls through education and advocacy.
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Donation Summary & Impact */}
+            <div className="space-y-6">
+              {/* Summary */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Donation Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between">
+                    <span>Amount:</span>
+                    <span className="font-semibold">${donationData.amount}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Type:</span>
+                    <span className="capitalize">{donationData.isRecurring ? 'Monthly' : 'One-time'}</span>
+                  </div>
+                  {donationData.donorName && (
+                    <div className="flex justify-between">
+                      <span>Donor:</span>
+                      <span>{donationData.donorName}</span>
+                    </div>
+                  )}
+                  <div className="border-t pt-4">
+                    <div className="flex justify-between font-bold text-lg">
+                      <span>Total:</span>
+                      <span className="text-primary">${donationData.amount}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Impact Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Your Impact</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {donationData.amount >= 100 && (
+                    <div className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                        <Check className="text-white h-4 w-4" />
+                      </div>
+                      <div>
+                        <p className="font-semibold">Scholarship Support</p>
+                        <p className="text-sm text-gray-600">Supports one scholarship recipient for three months</p>
+                      </div>
+                    </div>
+                  )}
+                  {donationData.amount >= 50 && (
+                    <div className="flex items-start space-x-3">
+                      <div className="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                        <Check className="text-white h-4 w-4" />
+                      </div>
+                      <div>
+                        <p className="font-semibold">Leadership Training</p>
+                        <p className="text-sm text-gray-600">Funds leadership training workshop for 5 women</p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                      <Check className="text-white h-4 w-4" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">Educational Materials</p>
+                      <p className="text-sm text-gray-600">Provides educational materials for girls in need</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Thank You Message */}
+              <Card className="bg-gradient-to-br from-secondary/10 to-accent/10">
+                <CardContent className="pt-6">
+                  <h3 className="font-serif text-xl font-bold text-primary mb-3">Thank You!</h3>
+                  <p className="text-gray-600 mb-4">
+                    Your generous donation directly supports our mission to empower women and girls across Kenya. 
+                    Together, we're creating lasting change in communities.
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    You will receive an email confirmation once your donation is processed.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

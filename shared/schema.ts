@@ -66,12 +66,13 @@ export const events = pgTable("events", {
 export const donations = pgTable("donations", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
-  currency: text("currency").notNull().default("USD"),
+  currency: text("currency").notNull().default("KES"),
   donorName: text("donor_name"),
   donorEmail: text("donor_email"),
   message: text("message"),
   isRecurring: boolean("is_recurring").default(false),
-  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  mpesaCheckoutRequestId: text("mpesa_checkout_request_id"),
+  mpesaReceiptNumber: text("mpesa_receipt_number"),
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

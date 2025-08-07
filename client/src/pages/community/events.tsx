@@ -34,8 +34,8 @@ export default function EventsPage() {
     return new Date(dateString) > new Date();
   };
 
-  const upcomingEvents = events?.filter(event => isUpcoming(event.startDate)) || [];
-  const pastEvents = events?.filter(event => !isUpcoming(event.startDate)) || [];
+  const upcomingEvents = events?.filter(event => isUpcoming(event.startDate.toString())) || [];
+  const pastEvents = events?.filter(event => !isUpcoming(event.startDate.toString())) || [];
 
   return (
     <Layout>
@@ -120,11 +120,11 @@ export default function EventsPage() {
                           <div className="space-y-2 text-sm text-gray-500 mb-4">
                             <div className="flex items-center">
                               <Calendar className="h-4 w-4 mr-2 text-accent" />
-                              <span>{formatDate(event.startDate)}</span>
+                              <span>{formatDate(event.startDate.toString())}</span>
                             </div>
                             <div className="flex items-center">
                               <Clock className="h-4 w-4 mr-2 text-accent" />
-                              <span>{formatTime(event.startDate)}</span>
+                              <span>{formatTime(event.startDate.toString())}</span>
                             </div>
                             {event.location && (
                               <div className="flex items-center">
@@ -181,7 +181,7 @@ export default function EventsPage() {
                           <div className="space-y-2 text-sm text-gray-500">
                             <div className="flex items-center">
                               <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-                              <span>{formatDate(event.startDate)}</span>
+                              <span>{formatDate(event.startDate.toString())}</span>
                             </div>
                             {event.location && (
                               <div className="flex items-center">

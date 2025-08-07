@@ -58,7 +58,7 @@ export interface IStorage {
   getAllDonations(): Promise<Donation[]>;
   getDonation(id: string): Promise<Donation | undefined>;
   createDonation(donation: InsertDonation): Promise<Donation>;
-  updateDonationStatus(id: string, status: string): Promise<Donation>;
+  updateDonationStatus(id: string, status: string, receiptNumber?: string): Promise<Donation>;
 
   // Merchandise
   getAllMerchandise(): Promise<Merchandise[]>;
@@ -83,11 +83,11 @@ export interface IStorage {
   updateGalleryImage(id: string, image: Partial<InsertGalleryImage>): Promise<GalleryImage>;
   deleteGalleryImage(id: string): Promise<void>;
 
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 }
 
 export class DatabaseStorage implements IStorage {
-  sessionStore: session.SessionStore;
+  sessionStore: session.Store;
 
   constructor() {
     this.sessionStore = new PostgresSessionStore({ 
@@ -264,9 +264,14 @@ export class DatabaseStorage implements IStorage {
     return newDonation;
   }
 
-  async updateDonationStatus(id: string, status: string): Promise<Donation> {
+  async updateDonationStatus(id: string, status: string, receiptNumber?: string): Promise<Donation> {
+    const updateData: any = { status };
+    if (receiptNumber) {
+      updateData.mpesaReceiptNumber = receiptNumber;
+    }
+    
     const [updatedDonation] = await db.update(donations)
-      .set({ status })
+      .set(updateData)
       .where(eq(donations.id, id))
       .returning();
     return updatedDonation;

@@ -128,7 +128,7 @@ export default function BlogPage() {
                       <div className={`${featuredPost.imageUrl ? 'md:w-1/2' : 'w-full'} p-8`}>
                         <div className="flex items-center text-sm text-gray-500 mb-4">
                           <Calendar className="h-4 w-4 mr-2" />
-                          <span>{formatDate(featuredPost.publishedAt || featuredPost.createdAt)}</span>
+                          <span>{formatDate((featuredPost.publishedAt || featuredPost.createdAt).toString())}</span>
                           <User className="h-4 w-4 ml-4 mr-2" />
                           <span>VOH-CBO Team</span>
                         </div>
@@ -171,7 +171,7 @@ export default function BlogPage() {
                         <CardHeader>
                           <div className="flex items-center text-sm text-gray-500 mb-2">
                             <Calendar className="h-4 w-4 mr-2" />
-                            <span>{formatDate(post.publishedAt || post.createdAt)}</span>
+                            <span>{formatDate((post.publishedAt || post.createdAt).toString())}</span>
                           </div>
                           <CardTitle className="text-lg text-primary line-clamp-2">
                             {post.title}

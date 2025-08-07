@@ -186,7 +186,7 @@ export default function TeamManagement() {
                     <Input
                       id="imageUrl"
                       type="url"
-                      value={formData.imageUrl}
+                      value={formData.imageUrl || ""}
                       onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                       data-testid="input-image-url"
                     />
@@ -196,7 +196,7 @@ export default function TeamManagement() {
                     <Input
                       id="email"
                       type="email"
-                      value={formData.email}
+                      value={formData.email || ""}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       data-testid="input-email"
                     />
@@ -206,7 +206,7 @@ export default function TeamManagement() {
                     <Input
                       id="linkedinUrl"
                       type="url"
-                      value={formData.linkedinUrl}
+                      value={formData.linkedinUrl || ""}
                       onChange={(e) => setFormData({ ...formData, linkedinUrl: e.target.value })}
                       data-testid="input-linkedin"
                     />
@@ -216,7 +216,7 @@ export default function TeamManagement() {
                     <Input
                       id="twitterUrl"
                       type="url"
-                      value={formData.twitterUrl}
+                      value={formData.twitterUrl || ""}
                       onChange={(e) => setFormData({ ...formData, twitterUrl: e.target.value })}
                       data-testid="input-twitter"
                     />

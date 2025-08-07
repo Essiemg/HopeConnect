@@ -46,11 +46,11 @@ Preferred communication style: Simple, everyday language.
 - **Gallery Management**: Image organization with Cloudinary integration for optimized delivery
 
 ## Payment Processing
-- **Payment Gateway**: Stripe integration for secure donation processing
-- **Payment Types**: Support for one-time and recurring donations
-- **Checkout Flow**: Embedded Stripe Elements for seamless payment experience
-- **Transaction Tracking**: Database logging of all donation transactions
-- **Security**: PCI-compliant payment processing through Stripe
+- **Payment Gateway**: M-Pesa integration for mobile money processing in Kenya
+- **Payment Types**: Support for one-time donations via STK Push
+- **Checkout Flow**: M-Pesa STK Push for seamless mobile payment experience
+- **Transaction Tracking**: Database logging of all donation transactions with M-Pesa receipt numbers
+- **Security**: Secure M-Pesa API integration with proper authentication and callback handling
 
 # External Dependencies
 
@@ -59,8 +59,8 @@ Preferred communication style: Simple, everyday language.
 - **Neon Database**: Serverless PostgreSQL hosting with connection pooling
 
 ## Payment Processing
-- **Stripe**: Payment gateway for donation processing and subscription management
-- **Stripe Elements**: Frontend payment form components for secure card collection
+- **M-Pesa Daraja API**: Mobile money payment gateway for donation processing
+- **STK Push**: Push payment requests directly to donor mobile phones
 
 ## Media Management
 - **Cloudinary**: Cloud-based image and video management for team photos, gallery images, and blog thumbnails

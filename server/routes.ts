@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import Stripe from "stripe";
+import axios from "axios";
 import { storage } from "./storage";
 import { setupAuth } from "./auth";
 import { 
@@ -9,10 +9,51 @@ import {
   insertContactMessageSchema, insertGalleryImageSchema
 } from "@shared/schema";
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2023-10-16",
-});
+// M-Pesa configuration
+const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY || "";
+const MPESA_CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET || "";
+const MPESA_BUSINESS_SHORT_CODE = process.env.MPESA_BUSINESS_SHORT_CODE || "174379";
+const MPESA_PASS_KEY = process.env.MPESA_PASS_KEY || "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+const MPESA_CALLBACK_URL = process.env.MPESA_CALLBACK_URL || "https://your-domain.repl.co/api/mpesa/callback";
+
+// M-Pesa utility functions
+const getTimestamp = () => {
+  const date = new Date();
+  return date.getFullYear() +
+    String(date.getMonth() + 1).padStart(2, '0') +
+    String(date.getDate()).padStart(2, '0') +
+    String(date.getHours()).padStart(2, '0') +
+    String(date.getMinutes()).padStart(2, '0') +
+    String(date.getSeconds()).padStart(2, '0');
+};
+
+const generatePassword = (timestamp: string) => {
+  const password = `${MPESA_BUSINESS_SHORT_CODE}${MPESA_PASS_KEY}${timestamp}`;
+  return Buffer.from(password).toString('base64');
+};
+
+const getAccessToken = async () => {
+  if (!MPESA_CONSUMER_KEY || !MPESA_CONSUMER_SECRET) {
+    throw new Error('M-Pesa credentials not configured');
+  }
+  
+  const auth = Buffer.from(`${MPESA_CONSUMER_KEY}:${MPESA_CONSUMER_SECRET}`).toString('base64');
+  
+  try {
+    const response = await axios.get(
+      'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+      {
+        headers: {
+          'Authorization': `Basic ${auth}`
+        }
+      }
+    );
+    return response.data.access_token;
+  } catch (error) {
+    console.error('Failed to get M-Pesa access token:', error);
+    throw new Error('Failed to get M-Pesa access token');
+  }
+};
 
 // Authentication middleware
 const requireAuth = (req: any, res: any, next: any) => {
@@ -115,70 +156,169 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Donation endpoints
-  app.post("/api/create-payment-intent", async (req, res) => {
+  // M-Pesa STK Push endpoint
+  app.post("/api/mpesa/stkpush", async (req, res) => {
     try {
-      const { amount, currency = "USD", donorName, donorEmail, message, isRecurring } = req.body;
+      const { phone, amount, donorName, donorEmail, message, accountReference } = req.body;
+      
+      if (!phone || !amount) {
+        return res.status(400).json({ message: "Phone number and amount are required" });
+      }
 
-      if (!amount || amount <= 0) {
+      if (amount <= 0) {
         return res.status(400).json({ message: "Valid amount is required" });
       }
 
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: Math.round(amount * 100), // Convert to cents
-        currency: currency.toLowerCase(),
-        metadata: {
-          donorName: donorName || "",
-          donorEmail: donorEmail || "",
-          isRecurring: isRecurring ? "true" : "false"
-        }
-      });
+      // Format phone number to ensure it starts with 254
+      const formattedPhone = phone.startsWith('254') ? phone : 
+                           phone.startsWith('0') ? '254' + phone.slice(1) : 
+                           '254' + phone;
 
-      // Save donation record
-      await storage.createDonation({
+      const accessToken = await getAccessToken();
+      const timestamp = getTimestamp();
+      const password = generatePassword(timestamp);
+      
+      const stkPushData = {
+        BusinessShortCode: MPESA_BUSINESS_SHORT_CODE,
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: 'CustomerPayBillOnline',
+        Amount: Math.round(amount),
+        PartyA: formattedPhone,
+        PartyB: MPESA_BUSINESS_SHORT_CODE,
+        PhoneNumber: formattedPhone,
+        CallBackURL: MPESA_CALLBACK_URL,
+        AccountReference: accountReference || `VOH-${Date.now()}`,
+        TransactionDesc: 'Donation to Voices of Hope CBO'
+      };
+      
+      const response = await axios.post(
+        'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+        stkPushData,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      // Save donation record with M-Pesa transaction ID
+      const donation = await storage.createDonation({
         amount: amount.toString(),
-        currency: currency.toUpperCase(),
-        donorName,
-        donorEmail,
-        message,
-        isRecurring: isRecurring || false,
-        stripePaymentIntentId: paymentIntent.id,
+        currency: "KES",
+        donorName: donorName || "Anonymous",
+        donorEmail: donorEmail || "",
+        message: message || "",
+        isRecurring: false,
+        mpesaCheckoutRequestId: response.data.CheckoutRequestID,
         status: "pending"
       });
-
-      res.json({ clientSecret: paymentIntent.client_secret });
+      
+      res.json({
+        success: true,
+        checkoutRequestId: response.data.CheckoutRequestID,
+        customerMessage: response.data.CustomerMessage,
+        donationId: donation.id
+      });
+      
     } catch (error: any) {
-      res.status(500).json({ message: "Error creating payment intent: " + error.message });
+      console.error('M-Pesa STK Push error:', error.response?.data || error.message);
+      res.status(500).json({
+        success: false,
+        message: "Error initiating M-Pesa payment: " + (error.response?.data?.errorMessage || error.message)
+      });
     }
   });
 
-  // Stripe webhook for payment confirmation
-  app.post("/api/webhooks/stripe", async (req, res) => {
+  // M-Pesa callback endpoint
+  app.post("/api/mpesa/callback", async (req, res) => {
     try {
-      const sig = req.headers['stripe-signature'];
-      const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-      if (!sig || !endpointSecret) {
-        return res.status(400).json({ message: "Missing signature or webhook secret" });
+      console.log('M-Pesa Callback received:', JSON.stringify(req.body, null, 2));
+      
+      const { Body } = req.body;
+      const stkCallback = Body?.stkCallback;
+      
+      if (!stkCallback) {
+        return res.json({ ResultCode: 0, ResultDesc: "Accepted" });
       }
 
-      const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-
-      if (event.type === 'payment_intent.succeeded') {
-        const paymentIntent = event.data.object;
+      const checkoutRequestId = stkCallback.CheckoutRequestID;
+      const resultCode = stkCallback.ResultCode;
+      
+      if (resultCode === 0) {
+        // Payment successful
+        console.log('M-Pesa payment successful for:', checkoutRequestId);
         
         // Find and update donation record
         const donations = await storage.getAllDonations();
-        const donation = donations.find(d => d.stripePaymentIntentId === paymentIntent.id);
+        const donation = donations.find(d => d.mpesaCheckoutRequestId === checkoutRequestId);
         
         if (donation) {
-          await storage.updateDonationStatus(donation.id, "completed");
+          // Extract transaction details
+          const callbackMetadata = stkCallback.CallbackMetadata?.Item || [];
+          const transactionId = callbackMetadata.find((item: any) => item.Name === 'MpesaReceiptNumber')?.Value;
+          
+          await storage.updateDonationStatus(donation.id, "completed", transactionId);
+          console.log(`Donation ${donation.id} marked as completed with M-Pesa receipt: ${transactionId}`);
+        }
+      } else {
+        // Payment failed
+        console.log('M-Pesa payment failed:', stkCallback.ResultDesc);
+        
+        const donations = await storage.getAllDonations();
+        const donation = donations.find(d => d.mpesaCheckoutRequestId === checkoutRequestId);
+        
+        if (donation) {
+          await storage.updateDonationStatus(donation.id, "failed");
         }
       }
-
-      res.json({ received: true });
+      
+      res.json({ ResultCode: 0, ResultDesc: "Accepted" });
     } catch (error: any) {
-      res.status(400).json({ message: "Webhook error: " + error.message });
+      console.error('M-Pesa callback error:', error);
+      res.json({ ResultCode: 0, ResultDesc: "Accepted" });
+    }
+  });
+
+  // M-Pesa STK Push query endpoint
+  app.post("/api/mpesa/query", async (req, res) => {
+    try {
+      const { checkoutRequestId } = req.body;
+      
+      if (!checkoutRequestId) {
+        return res.status(400).json({ message: "CheckoutRequestID is required" });
+      }
+
+      const accessToken = await getAccessToken();
+      const timestamp = getTimestamp();
+      const password = generatePassword(timestamp);
+      
+      const queryData = {
+        BusinessShortCode: MPESA_BUSINESS_SHORT_CODE,
+        Password: password,
+        Timestamp: timestamp,
+        CheckoutRequestID: checkoutRequestId
+      };
+      
+      const response = await axios.post(
+        'https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query',
+        queryData,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      res.json(response.data);
+      
+    } catch (error: any) {
+      console.error('M-Pesa query error:', error.response?.data || error.message);
+      res.status(500).json({ 
+        message: "Error querying M-Pesa transaction: " + (error.response?.data?.errorMessage || error.message)
+      });
     }
   });
 
