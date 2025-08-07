@@ -1,0 +1,999 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voices of Hope Community-Based Organisation (VOH-CBO)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513',
+                        secondary: '#DAA520', 
+                        accent: '#FF6B47',
+                        neutral: '#F5F5DC',
+                        success: '#228B22',
+                        earth: {
+                            50: '#FDF8F3',
+                            100: '#F9EFE3',
+                            200: '#F2DCC7',
+                            300: '#E8C5A0',
+                            400: '#DAA520',
+                            500: '#8B4513',
+                            600: '#7A3C10',
+                            700: '#69340E',
+                            800: '#582B0C',
+                            900: '#47230A'
+                        }
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="font-sans bg-earth-50 text-gray-800">
+    <!-- @COMPONENT: Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                        <i class="fas fa-heart text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-serif text-xl font-bold text-primary">VOH-CBO</h1>
+                        <p class="text-xs text-gray-600">Voices of Hope</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Home</a>
+                    
+                    <!-- Who We Are Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium flex items-center">
+                            Who We Are <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border hidden">
+                            <a href="#history" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Our History</a>
+                            <a href="#team" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Our Team</a>
+                            <a href="#partnerships" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Community & Partnerships</a>
+                            <a href="#scholarships" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Scholarships</a>
+                        </div>
+                    </div>
+
+                    <!-- What We Do Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium flex items-center">
+                            What We Do <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border hidden">
+                            <a href="#voices" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Give Voices to Women</a>
+                            <a href="#education" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Education & Programs</a>
+                            <a href="#beneficiaries" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Target Beneficiaries</a>
+                        </div>
+                    </div>
+
+                    <!-- Community Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium flex items-center">
+                            Community <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border hidden">
+                            <a href="#events" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Events</a>
+                            <a href="#photos" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Photos</a>
+                            <a href="#blog" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Blogs & Features</a>
+                            <a href="#shop" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Shop</a>
+                        </div>
+                    </div>
+
+                    <!-- Donate Dropdown -->
+                    <div class="dropdown relative">
+                        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium flex items-center">
+                            Donate <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border hidden">
+                            <a href="#general-donations" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">General Donations</a>
+                            <a href="#gifts" class="block px-4 py-3 text-sm text-gray-700 hover:bg-earth-100 transition-colors">Gifts</a>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">Contact</a>
+                    
+                    <button class="bg-accent text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors duration-200 font-medium">
+                        Donate Now
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button class="lg:hidden p-2" data-mobile-menu-toggle>
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="lg:hidden hidden bg-white border-t" data-mobile-menu>
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block py-2 text-gray-700 font-medium">Home</a>
+                <div class="border-l-2 border-earth-300 pl-4 space-y-2">
+                    <p class="font-medium text-primary">Who We Are</p>
+                    <a href="#history" class="block py-1 text-sm text-gray-600">Our History</a>
+                    <a href="#team" class="block py-1 text-sm text-gray-600">Our Team</a>
+                    <a href="#partnerships" class="block py-1 text-sm text-gray-600">Community & Partnerships</a>
+                    <a href="#scholarships" class="block py-1 text-sm text-gray-600">Scholarships</a>
+                </div>
+                <div class="border-l-2 border-earth-300 pl-4 space-y-2">
+                    <p class="font-medium text-primary">What We Do</p>
+                    <a href="#voices" class="block py-1 text-sm text-gray-600">Give Voices to Women</a>
+                    <a href="#education" class="block py-1 text-sm text-gray-600">Education & Programs</a>
+                    <a href="#beneficiaries" class="block py-1 text-sm text-gray-600">Target Beneficiaries</a>
+                </div>
+                <div class="border-l-2 border-earth-300 pl-4 space-y-2">
+                    <p class="font-medium text-primary">Community</p>
+                    <a href="#events" class="block py-1 text-sm text-gray-600">Events</a>
+                    <a href="#photos" class="block py-1 text-sm text-gray-600">Photos</a>
+                    <a href="#blog" class="block py-1 text-sm text-gray-600">Blogs & Features</a>
+                    <a href="#shop" class="block py-1 text-sm text-gray-600">Shop</a>
+                </div>
+                <a href="#contact" class="block py-2 text-gray-700 font-medium">Contact</a>
+                <button class="w-full bg-accent text-white py-3 rounded-full font-medium mt-4">Donate Now</button>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Beautiful landscape of Kenyan women in a community setting -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40">
+            <img src="https://pixabay.com/get/g634cf8af68798d43398e1e465bb645a700698209f357aef0563eb5bc173d8f6f2f4ee4edbea433f2495ea72527765d36967d1557746538f7bbb9e724cd6072fc_1280.jpg" 
+                 alt="Kenyan women empowerment community" 
+                 class="w-full h-full object-cover" />
+        </div>
+        
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+                Raising Her Voice,<br>
+                <span class="text-secondary">Lifting Her Future</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90 animate-slide-up">
+                Amplifying the voices of girls and women through education, advocacy, leadership, and community inclusion across Kenya.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+                <button class="bg-accent hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-heart mr-2"></i>Donate Today
+                </button>
+                <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-800 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300">
+                    <i class="fas fa-users mr-2"></i>Join Our Community
+                </button>
+                <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-800 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300">
+                    <i class="fas fa-book mr-2"></i>Learn More
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Hero Section -->
+
+    <!-- @COMPONENT: Mission, Vision, Values -->
+    <section class="py-20 bg-white" id="mission">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Our Foundation</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Built on the pillars of empowerment, education, and community transformation
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mission -->
+                <div class="bg-earth-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-bullseye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-primary mb-4">Our Mission</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        To amplify the voices of girls and women by promoting education, advocacy, leadership, and community inclusion, creating lasting positive change in their lives and communities.
+                    </p>
+                </div>
+
+                <!-- Vision -->
+                <div class="bg-earth-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-eye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-primary mb-4">Our Vision</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        A world where every girl and woman has the opportunity to thrive, lead, and contribute meaningfully to their communities and society at large.
+                    </p>
+                </div>
+
+                <!-- Values -->
+                <div class="bg-earth-50 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent to-success rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hands-helping text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-primary mb-4">Core Values</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Empowerment, Integrity, Inclusivity, Excellence, and Community-driven approach guide everything we do in our mission to transform lives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Mission, Vision, Values -->
+
+    <!-- @COMPONENT: Impact Statistics -->
+    <section class="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Our Impact</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Creating meaningful change in communities across Kenya through dedicated programs and initiatives
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-mock="true">
+                    <div class="text-5xl font-bold mb-2" data-bind="stats.womenEmpowered">1,250+</div>
+                    <p class="text-lg opacity-90">Women Empowered</p>
+                </div>
+                <div class="text-center" data-mock="true">
+                    <div class="text-5xl font-bold mb-2" data-bind="stats.scholarshipsProvided">89</div>
+                    <p class="text-lg opacity-90">Scholarships Provided</p>
+                </div>
+                <div class="text-center" data-mock="true">
+                    <div class="text-5xl font-bold mb-2" data-bind="stats.communitiesReached">24</div>
+                    <p class="text-lg opacity-90">Communities Reached</p>
+                </div>
+                <div class="text-center" data-mock="true">
+                    <div class="text-5xl font-bold mb-2" data-bind="stats.yearsOfService">8</div>
+                    <p class="text-lg opacity-90">Years of Service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Impact Statistics -->
+
+    <!-- @COMPONENT: Programs Section -->
+    <section class="py-20 bg-white" id="programs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">What We Do</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive programs designed to empower, educate, and elevate women and girls in Kenya
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Program 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Educational program in Africa with women learning -->
+                    <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Educational program in Africa" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Education & Leadership</h3>
+                        <p class="text-gray-600 mb-4">
+                            Comprehensive educational programs including digital literacy, leadership training, and mentorship opportunities for young women.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Community meeting and advocacy -->
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Community advocacy meeting" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Advocacy & Voice</h3>
+                        <p class="text-gray-600 mb-4">
+                            Amplifying women's voices in community decision-making, advocacy training, and gender-based empowerment initiatives.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Health and reproductive rights education -->
+                    <img src="https://pixabay.com/get/g9b7be65ed4113f92484d32bb51b463583763187a69dae61a38579a4357e4a4f4f487baaed3bbaf1c6a10b8b41e834358e0958848e3b17e7d8adb48f1cb8163e3_1280.jpg" 
+                         alt="Health education session" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Health & Rights</h3>
+                        <p class="text-gray-600 mb-4">
+                            Sexual and reproductive health education, rights awareness, and support for survivors of gender-based violence.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Economic empowerment and skills training -->
+                    <img src="https://images.unsplash.com/photo-1511376777868-611b54f68947?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Economic empowerment training" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Economic Empowerment</h3>
+                        <p class="text-gray-600 mb-4">
+                            Skills training, microfinance education, and entrepreneurship programs to foster economic independence.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program 5 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Youth mentorship program -->
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Youth mentorship session" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Youth Mentorship</h3>
+                        <p class="text-gray-600 mb-4">
+                            Mentorship programs connecting young women with successful role models and providing guidance for future success.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Program 6 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Community inclusion and partnerships -->
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Community inclusion activities" 
+                         class="w-full h-48 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3">Community Inclusion</h3>
+                        <p class="text-gray-600 mb-4">
+                            Building inclusive communities through partnerships, cultural exchange, and collaborative development initiatives.
+                        </p>
+                        <button class="text-accent font-semibold hover:text-orange-600 transition-colors">
+                            Learn More <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Programs Section -->
+
+    <!-- @COMPONENT: Donation Section -->
+    <section class="py-20 bg-gradient-to-br from-earth-100 to-earth-200" id="donate">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Make a Difference</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Your contribution helps us continue empowering women and girls across Kenya. Every donation creates lasting impact.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Donation Form -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="font-serif text-2xl font-bold text-primary mb-6">Support Our Mission</h3>
+                    
+                    <!-- Donation Amount Selection -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Select Donation Amount</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                            <button class="bg-earth-100 hover:bg-accent hover:text-white p-3 rounded-lg font-semibold transition-colors duration-200" data-amount="25">$25</button>
+                            <button class="bg-earth-100 hover:bg-accent hover:text-white p-3 rounded-lg font-semibold transition-colors duration-200" data-amount="50">$50</button>
+                            <button class="bg-earth-100 hover:bg-accent hover:text-white p-3 rounded-lg font-semibold transition-colors duration-200" data-amount="100">$100</button>
+                            <button class="bg-earth-100 hover:bg-accent hover:text-white p-3 rounded-lg font-semibold transition-colors duration-200" data-amount="250">$250</button>
+                        </div>
+                        <input type="number" placeholder="Custom amount" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" data-custom-amount />
+                    </div>
+
+                    <!-- Donation Type -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Donation Type</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="donation-type" value="one-time" class="text-accent focus:ring-accent" checked />
+                                <span class="ml-2">One-time</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="donation-type" value="monthly" class="text-accent focus:ring-accent" />
+                                <span class="ml-2">Monthly</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Donor Information -->
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <input type="text" placeholder="First Name" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required />
+                        <input type="text" placeholder="Last Name" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required />
+                    </div>
+                    <input type="email" placeholder="Email Address" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent mb-6" required />
+
+                    <!-- Payment Method -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Payment Method</label>
+                        <div class="space-y-3">
+                            <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-earth-50">
+                                <input type="radio" name="payment-method" value="card" class="text-accent focus:ring-accent" checked />
+                                <i class="fas fa-credit-card ml-3 mr-2 text-gray-600"></i>
+                                <span>Credit/Debit Card</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-earth-50">
+                                <input type="radio" name="payment-method" value="paypal" class="text-accent focus:ring-accent" />
+                                <i class="fab fa-paypal ml-3 mr-2 text-gray-600"></i>
+                                <span>PayPal</span>
+                            </label>
+                            <label class="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-earth-50">
+                                <input type="radio" name="payment-method" value="mpesa" class="text-accent focus:ring-accent" />
+                                <i class="fas fa-mobile-alt ml-3 mr-2 text-gray-600"></i>
+                                <span>M-Pesa</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="w-full bg-accent hover:bg-orange-600 text-white py-4 rounded-lg font-semibold text-lg transition-colors duration-200" data-event="click:handleDonation">
+                        <i class="fas fa-heart mr-2"></i>Complete Donation
+                    </button>
+
+                    <!-- Security Note -->
+                    <p class="text-xs text-gray-500 mt-4 text-center">
+                        <i class="fas fa-lock mr-1"></i>Your donation is secure and encrypted
+                    </p>
+                </div>
+
+                <!-- Impact Story -->
+                <div class="space-y-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h4 class="font-serif text-xl font-bold text-primary mb-4">Your Impact</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <div class="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">$25</p>
+                                    <p class="text-sm text-gray-600">Provides educational materials for one girl for a month</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <div class="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">$50</p>
+                                    <p class="text-sm text-gray-600">Funds leadership training workshop for 5 women</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3" data-mock="true">
+                                <div class="w-8 h-8 bg-success rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">$100</p>
+                                    <p class="text-sm text-gray-600">Supports one scholarship recipient for three months</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success Story -->
+                    <div class="bg-gradient-to-br from-secondary/10 to-accent/10 rounded-2xl p-8">
+                        <h4 class="font-serif text-xl font-bold text-primary mb-4">Success Story</h4>
+                        <p class="text-gray-600 mb-4 italic">
+                            "Thanks to VOH-CBO's scholarship program, I was able to complete my secondary education and am now pursuing a degree in computer science. I want to use technology to solve problems in my community."
+                        </p>
+                        <div class="flex items-center space-x-3" data-mock="true">
+                            <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold" data-bind="testimonial.initials">AM</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold" data-bind="testimonial.name">Amina M.</p>
+                                <p class="text-sm text-gray-500">Scholarship Recipient</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Donation Section -->
+
+    <!-- @COMPONENT: Team Section -->
+    <section class="py-20 bg-white" id="team">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Meet Our Team</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Dedicated professionals and volunteers working tirelessly to empower women and girls across Kenya
+                </p>
+            </div>
+
+            <!-- @MAP: teamMembers.map(member => ( -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" data-mock="true">
+                    <!-- Professional headshot of African woman leader -->
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400" 
+                         alt="Team member portrait" 
+                         class="w-full h-64 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-1" data-bind="member.name">Sarah Wanjiku</h3>
+                        <p class="text-accent font-semibold mb-3" data-bind="member.role">Executive Director</p>
+                        <p class="text-gray-600 text-sm mb-4" data-bind="member.bio">
+                            Passionate advocate with 15+ years in women's rights and community development across East Africa.
+                        </p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="linkedin">
+                                <i class="fab fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="twitter">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="email">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" data-mock="true">
+                    <!-- Professional headshot of African woman educator -->
+                    <img src="https://pixabay.com/get/g7d8bac05b0582410fb3862dfe7ec82647a4872ddeb37e9464c0bf88b047ff9fbb0bc1fedd3bece999c486e2f0de9e2bd9b2e1d935acdf1a0f77aaf73be109ad7_1280.jpg" 
+                         alt="Team member portrait" 
+                         class="w-full h-64 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-1" data-bind="member.name">Grace Muthoni</h3>
+                        <p class="text-accent font-semibold mb-3" data-bind="member.role">Program Manager</p>
+                        <p class="text-gray-600 text-sm mb-4" data-bind="member.bio">
+                            Educational specialist focusing on digital literacy and leadership development for young women.
+                        </p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="linkedin">
+                                <i class="fab fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="twitter">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="email">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" data-mock="true">
+                    <!-- Professional headshot of African woman advocate -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400" 
+                         alt="Team member portrait" 
+                         class="w-full h-64 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-1" data-bind="member.name">Faith Njeri</h3>
+                        <p class="text-accent font-semibold mb-3" data-bind="member.role">Community Outreach Coordinator</p>
+                        <p class="text-gray-600 text-sm mb-4" data-bind="member.bio">
+                            Community mobilizer with expertise in grassroots advocacy and women's health education.
+                        </p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="linkedin">
+                                <i class="fab fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="twitter">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="email">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" data-mock="true">
+                    <!-- Professional headshot of African woman administrator -->
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400" 
+                         alt="Team member portrait" 
+                         class="w-full h-64 object-cover" />
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold text-primary mb-1" data-bind="member.name">Mary Akinyi</h3>
+                        <p class="text-accent font-semibold mb-3" data-bind="member.role">Finance & Operations Manager</p>
+                        <p class="text-gray-600 text-sm mb-4" data-bind="member.bio">
+                            Financial expert ensuring transparent and efficient use of resources for maximum community impact.
+                        </p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="linkedin">
+                                <i class="fab fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="twitter">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors" data-social="email">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_MAP )) -->
+
+            <div class="text-center mt-12">
+                <button class="bg-accent hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-colors duration-200">
+                    View All Team Members
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Team Section -->
+
+    <!-- @COMPONENT: Contact Section -->
+    <section class="py-20 bg-gradient-to-br from-earth-100 to-earth-200" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Ready to join our mission? Have questions? We'd love to hear from you.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h3 class="font-serif text-2xl font-bold text-primary mb-6">Send us a message</h3>
+                    <form class="space-y-6" data-contact-form>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="First Name" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required />
+                            <input type="text" placeholder="Last Name" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required />
+                        </div>
+                        <input type="email" placeholder="Email Address" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required />
+                        <input type="tel" placeholder="Phone Number (Optional)" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" />
+                        <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required>
+                            <option value="">Select Inquiry Type</option>
+                            <option value="volunteer">Volunteer Opportunity</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="donation">Donation Inquiry</option>
+                            <option value="program">Program Information</option>
+                            <option value="media">Media/Press</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <textarea placeholder="Your Message" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" required></textarea>
+                        
+                        <!-- Newsletter Subscription -->
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="text-accent focus:ring-accent rounded" />
+                            <span class="text-sm text-gray-600">Subscribe to our newsletter for updates and impact stories</span>
+                        </label>
+
+                        <button type="submit" class="w-full bg-accent hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition-colors duration-200" data-event="click:handleContactForm">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <!-- Contact Details -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="font-serif text-2xl font-bold text-primary mb-6">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4" data-mock="true">
+                                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-primary">Address</p>
+                                    <p class="text-gray-600" data-bind="contact.address">Nairobi, Kenya<br>P.O. Box 12345-00100</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4" data-mock="true">
+                                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-primary">Phone</p>
+                                    <p class="text-gray-600" data-bind="contact.phone">+254 700 123 456</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4" data-mock="true">
+                                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-primary">Email</p>
+                                    <p class="text-gray-600" data-bind="contact.email">info@voh-cbo.org</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4" data-mock="true">
+                                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-primary">Office Hours</p>
+                                    <p class="text-gray-600" data-bind="contact.hours">Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 2:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="font-serif text-2xl font-bold text-primary mb-6">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white transition-colors duration-200">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-blue-400 hover:bg-blue-500 rounded-full flex items-center justify-center text-white transition-colors duration-200">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-pink-600 hover:bg-pink-700 rounded-full flex items-center justify-center text-white transition-colors duration-200">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-blue-700 hover:bg-blue-800 rounded-full flex items-center justify-center text-white transition-colors duration-200">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center text-white transition-colors duration-200">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-600 mt-4 text-sm">
+                            Stay connected for updates, success stories, and ways to get involved in our mission.
+                        </p>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="font-serif text-2xl font-bold text-primary mb-6">Visit Us</h3>
+                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center" data-google-maps-integration>
+                            <div class="text-center text-gray-500">
+                                <i class="fas fa-map text-4xl mb-2"></i>
+                                <p>Interactive Map</p>
+                                <p class="text-sm">Google Maps Integration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Contact Section -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-gray-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Organization Info -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                            <i class="fas fa-heart text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="font-serif text-xl font-bold text-white">VOH-CBO</h1>
+                            <p class="text-xs text-gray-300">Voices of Hope</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        Amplifying the voices of girls and women through education, advocacy, leadership, and community inclusion across Kenya. Together, we're building a future where every woman can thrive.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-primary rounded-full flex items-center justify-center transition-colors duration-200">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-primary rounded-full flex items-center justify-center transition-colors duration-200">
+                            <i class="fab fa-twitter text-sm"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-primary rounded-full flex items-center justify-center transition-colors duration-200">
+                            <i class="fab fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-700 hover:bg-primary rounded-full flex items-center justify-center transition-colors duration-200">
+                            <i class="fab fa-linkedin-in text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-serif text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-300 hover:text-accent transition-colors">About Us</a></li>
+                        <li><a href="#programs" class="text-gray-300 hover:text-accent transition-colors">Our Programs</a></li>
+                        <li><a href="#team" class="text-gray-300 hover:text-accent transition-colors">Our Team</a></li>
+                        <li><a href="#impact" class="text-gray-300 hover:text-accent transition-colors">Impact</a></li>
+                        <li><a href="#events" class="text-gray-300 hover:text-accent transition-colors">Events</a></li>
+                        <li><a href="#blog" class="text-gray-300 hover:text-accent transition-colors">Blog</a></li>
+                        <li><a href="#careers" class="text-gray-300 hover:text-accent transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Get Involved -->
+                <div>
+                    <h3 class="font-serif text-lg font-bold mb-4">Get Involved</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#donate" class="text-gray-300 hover:text-accent transition-colors">Donate</a></li>
+                        <li><a href="#volunteer" class="text-gray-300 hover:text-accent transition-colors">Volunteer</a></li>
+                        <li><a href="#partnerships" class="text-gray-300 hover:text-accent transition-colors">Partner With Us</a></li>
+                        <li><a href="#fundraise" class="text-gray-300 hover:text-accent transition-colors">Fundraise</a></li>
+                        <li><a href="#shop" class="text-gray-300 hover:text-accent transition-colors">Shop</a></li>
+                        <li><a href="#newsletter" class="text-gray-300 hover:text-accent transition-colors">Newsletter</a></li>
+                        <li><a href="#advocate" class="text-gray-300 hover:text-accent transition-colors">Advocate</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Newsletter Signup -->
+            <div class="border-t border-gray-700 mt-12 pt-8">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="font-serif text-lg font-bold mb-2">Stay Updated</h3>
+                        <p class="text-gray-300 text-sm">Get the latest news and impact stories delivered to your inbox.</p>
+                    </div>
+                    <div class="flex max-w-md">
+                        <input type="email" placeholder="Enter your email" class="flex-1 p-3 bg-gray-700 border border-gray-600 rounded-l-lg focus:ring-2 focus:ring-accent focus:border-transparent text-white placeholder-gray-400" />
+                        <button class="bg-accent hover:bg-orange-600 px-6 py-3 rounded-r-lg font-semibold transition-colors duration-200">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-700 mt-8 pt-8 md:flex md:items-center md:justify-between">
+                <div class="text-gray-300 text-sm">
+                    <p>&copy; 2024 Voices of Hope Community-Based Organisation (VOH-CBO). All rights reserved.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <ul class="flex space-x-6 text-sm text-gray-300">
+                        <li><a href="#privacy" class="hover:text-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="#terms" class="hover:text-accent transition-colors">Terms of Service</a></li>
+                        <li><a href="#accessibility" class="hover:text-accent transition-colors">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // Mobile menu toggle functionality
+        (function() {
+            const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
+            const mobileMenu = document.querySelector('[data-mobile-menu]');
+
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.className = 'fas fa-bars text-xl text-gray-700';
+                    } else {
+                        icon.className = 'fas fa-times text-xl text-gray-700';
+                    }
+                });
+            }
+        })();
+
+        // Donation amount selection
+        (function() {
+            const amountButtons = document.querySelectorAll('[data-amount]');
+            const customAmountInput = document.querySelector('[data-custom-amount]');
+
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    amountButtons.forEach(btn => {
+                        btn.classList.remove('bg-accent', 'text-white');
+                        btn.classList.add('bg-earth-100');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('bg-accent', 'text-white');
+                    this.classList.remove('bg-earth-100');
+                    
+                    // Clear custom amount
+                    if (customAmountInput) {
+                        customAmountInput.value = '';
+                    }
+                });
+            });
+
+            if (customAmountInput) {
+                customAmountInput.addEventListener('input', function() {
+                    if (this.value) {
+                        // Remove active class from all amount buttons
+                        amountButtons.forEach(btn => {
+                            btn.classList.remove('bg-accent', 'text-white');
+                            btn.classList.add('bg-earth-100');
+                        });
+                    }
+                });
+            }
+        })();
+
+        // Smooth scrolling for navigation links
+        (function() {
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        })();
+
+        // Form submission handlers (placeholders for actual implementation)
+        document.addEventListener('DOMContentLoaded', function() {
+            // TODO: Implement donation form submission with Stripe integration
+            const donationForm = document.querySelector('[data-event="click:handleDonation"]');
+            if (donationForm) {
+                donationForm.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Donation form submission - integrate with Stripe API');
+                    // Actual implementation would handle Stripe payment processing
+                });
+            }
+
+            // TODO: Implement contact form submission with backend API
+            const contactForm = document.querySelector('[data-contact-form]');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Contact form submission - send to backend API');
+                    // Actual implementation would send data to backend and trigger email
+                });
+            }
+        });
+    </script>
+</body>
+</html>
