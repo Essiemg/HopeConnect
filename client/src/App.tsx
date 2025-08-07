@@ -15,11 +15,17 @@ import EventsManagement from "@/pages/admin/events-management";
 import DonationPage from "@/pages/donation-page";
 import TeamPage from "@/pages/about/team";
 import HistoryPage from "@/pages/about/history";
+import PartnershipsPage from "@/pages/about/partnerships";
+import ScholarshipsPage from "@/pages/about/scholarships";
 import EducationPage from "@/pages/programs/education";
+import VoicesPage from "@/pages/programs/voices";
+import BeneficiariesPage from "@/pages/programs/beneficiaries";
 import EventsPage from "@/pages/community/events";
 import BlogPage from "@/pages/community/blog";
+import PhotosPage from "@/pages/community/photos";
 import ShopPage from "@/pages/community/shop";
 import ContactPage from "@/pages/contact";
+import GiftsPage from "@/pages/donate/gifts";
 
 function Router() {
   return (
@@ -29,11 +35,17 @@ function Router() {
       <Route path="/donate" component={DonationPage} />
       <Route path="/about/team" component={TeamPage} />
       <Route path="/about/history" component={HistoryPage} />
+      <Route path="/about/partnerships" component={PartnershipsPage} />
+      <Route path="/about/scholarships" component={ScholarshipsPage} />
       <Route path="/programs/education" component={EducationPage} />
+      <Route path="/programs/voices" component={VoicesPage} />
+      <Route path="/programs/beneficiaries" component={BeneficiariesPage} />
       <Route path="/community/events" component={EventsPage} />
       <Route path="/community/blog" component={BlogPage} />
+      <Route path="/community/photos" component={PhotosPage} />
       <Route path="/community/shop" component={ShopPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/donate/gifts" component={GiftsPage} />
       
       {/* Protected admin routes */}
       <ProtectedRoute path="/admin" component={AdminDashboard} />
