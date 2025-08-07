@@ -1,0 +1,126 @@
+Build a Full-Stack NGO Website for “Voices of Hope Community-Based Organisation (VOH-CBO)” with Custom Navigation, Admin Dashboard, and Donation System
+________________________________________
+🧠 CONTEXT:
+Create a professional, responsive, accessible, and scalable full-stack website for a Kenyan non-profit organization called Voices of Hope Community-Based Organisation (VOH-CBO). VOH-CBO’s mission is to amplify the voices of girls and women by promoting education, advocacy, leadership, and community inclusion.
+The site should have:
+•	A modern look, clean and emotional branding
+•	Optimized user experience
+•	Full admin control
+•	Donation and eCommerce support
+•	A robust back-end with content management
+________________________________________
+🧱 TECH STACK (Do Not Offer Alternatives):
+•	Front-End: Next.js (React-based, SEO-friendly, supports server-side rendering)
+•	Styling: Tailwind CSS (for consistent, scalable UI)
+•	Back-End: Node.js with Express.js
+•	Database: PostgreSQL (with Prisma ORM for structured, secure data models)
+•	Authentication: JSON Web Tokens (JWT) for admin login
+•	File Uploads: Cloudinary for team images, gallery, and blog thumbnails
+•	Email: Nodemailer for form communication (Contact + Volunteer)
+•	Payments: Stripe integration for donations and merchandise purchases
+•	Deployment:
+o	Vercel for front-end
+o	Railway or Render for backend and PostgreSQL
+o	.env configuration for secret management
+________________________________________
+🌐 WEBSITE NAVIGATION STRUCTURE:
+1. First Tab – Home
+•	Highlight sections in this order:
+o	Mission, Vision, Core Values (from the PDF)
+o	Short visual introduction (hero image/video with quote: “Raising Her Voice, Lifting Her Future”)
+o	Featured CTA (Donate, Join, Learn)
+2. Second Tab – Who We Are (Dropdown Menu)
+•	Our History – Static page outlining the foundation and evolution of VOH-CBO
+•	Our Team – Team member profiles (Name, Role, Bio, Image, Socials)
+•	The Community and Partnerships – Highlight collaborators and networks
+•	Scholarships – Dedicated section to show scholarships offered, eligibility, stories
+3. Third Tab – What We Do (Dropdown Menu)
+•	Give Voices to Women – Advocacy and gender-based empowerment initiatives
+•	Education and Programs – Highlight leadership, digital literacy, SRHR, mentorship
+•	Target Beneficiaries – Page profiling the groups served (e.g., survivors, youth mentors)
+4. Fourth Tab – Community (Dropdown Menu)
+•	Events – Timeline/calendar of events with descriptions and call-to-action buttons
+•	Photos – Interactive gallery from Cloudinary
+•	Blogs and Features – CMS-driven blog section for stories, updates, features
+•	Shop – eCommerce store to sell branded merchandise (VOH hoodies, journals, etc.)
+5. Fifth Tab – Donate (Dropdown Menu)
+•	General Donations – Stripe-enabled page for one-time/monthly donations
+•	Gifts – Option to donate in honor of someone or donate specific items/services
+6. Sixth Tab – Contact
+•	Form (Name, Email, Message)
+•	Google Map integration
+•	Static details from PDF (Phone, Email)
+________________________________________
+🧩 CORE FEATURES:
+✅ Front-End
+•	Mobile-first design
+•	Search-engine optimized
+•	Accessible (keyboard navigation, screen reader-friendly)
+•	Styled with Tailwind (customizable and performant)
+•	Reusable components: nav, cards, buttons, modals, sections
+✅ Back-End
+•	RESTful API using Express.js
+•	Secure admin routes with JWT
+•	Admin can:
+o	Add/edit/delete: team, programs, blog posts, events, photos
+o	Manage scholarship content
+o	Upload media to Cloudinary
+o	View submitted volunteer/contact forms
+•	Prisma schema for:
+o	TeamMembers
+o	BlogPosts
+o	Programs
+o	GalleryImages
+o	Events
+o	Donations
+o	Merchandise
+o	ContactMessages
+✅ Database (PostgreSQL)
+•	Hosted on Railway with Prisma migration support
+•	Structured to maintain referential integrity and scale easily
+✅ Admin Dashboard
+•	Protected with login
+•	Sections:
+o	Content Manager (Team, Blogs, Programs)
+o	Gallery Uploader
+o	Event Scheduler
+o	Scholarship Tracker
+o	Donation Reports
+o	Product Inventory (for Shop)
+•	Clean UI, possibly with Tailwind UI admin components
+________________________________________
+🛠️ DEVELOPMENT WORKFLOW:
+1.	Project Setup
+o	Initialize Next.js app + Tailwind
+o	Scaffold backend with Express.js
+o	Set up PostgreSQL + Prisma + Cloudinary
+2.	Page Development
+o	Static Pages (Mission, Vision, History)
+o	Dynamic Pages (Team, Events, Blog, Shop)
+3.	API Creation
+o	RESTful endpoints for CRUD operations
+o	Stripe webhook for donation confirmation
+4.	Admin Dashboard
+o	Authenticated routes using JWT
+o	UI for managing all content sections
+5.	Testing
+o	Manual browser testing for forms and responsiveness
+o	Unit testing for backend endpoints using Jest
+6.	Deployment
+o	Vercel (Frontend)
+o	Railway/Render (Backend & DB)
+o	Connect frontend to backend via env-configured API
+________________________________________
+🎨 THEME & VISUAL DESIGN:
+•	Use earth tones and empowering imagery
+•	Fonts: Friendly serif + readable sans-serif
+•	Use photography from the field with light overlays and callout quotes
+•	Design inspired by UN Women, Malala Fund, Vital Voices
+•	Balanced whitespace to let content breathe
+________________________________________
+🧪 BONUS FEATURES (Optional but Suggested):
+•	Accessibility plugin (e.g., skip to content, contrast toggle)
+•	Newsletter signup integration (Mailchimp or Sendinblue)
+•	Success story section with audio/video support
+•	Swahili language toggle (if content is available)
+
